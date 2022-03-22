@@ -1,15 +1,17 @@
 //@dart=2.9
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:manage/CreateView.dart';
 import 'package:manage/DetailView.dart';
 import 'package:manage/FirstRoute.dart';
+import 'package:manage/Navigate.dart';
 import 'package:manage/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:manage/people.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class DataView extends StatefulWidget {
-  var reload_flag;
   DataViewState createState() => DataViewState();
   //DataView({Key key, @required this.reload_flag}) : super(key: key);
 }
@@ -35,48 +37,84 @@ class DataViewState extends State<DataView> {
   }
 
   Widget build(BuildContext context) {
+    NavigateToPage navi = new NavigateToPage();
     return Scaffold(
         appBar: AppBar(title: Text('Grid View')),
-        body: Container(
-          color: Colors.pink,
-          child: ListView.builder(
-              itemCount: listUser.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  child: Column(
-                    children: [
-                      Container(
-                          width: 300,
-                          height: 200,
-                          decoration: new BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.amber,
+        body: Center(
+            child: Center(
+          child: Container(
+            color: Colors.pink,
+            child: ListView.builder(
+                itemCount: listUser.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                  width: 300,
+                                  height: 200,
+                                  decoration: new BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: Colors.amber,
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(listUser[index].name.toString(),
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          color: Colors.purpleAccent,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        )),
+                                  )),
+                              const SizedBox(height: 250)
+                            ],
                           ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(listUser[index].name.toString(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.purpleAccent,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                )),
-                          )),
-                      SizedBox(
-                        height: 50,
-                      )
-                    ],
-                  ),
-                  onTap: () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DetailView(
-                                  idParameter: this.listUser[index].id,
-                                )))
-                  },
-                );
-              }),
+                        ],
+                      ),
+                    ),
+                    onTap: () => {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailView(
+                                    idParameter: this.listUser[index].id,
+                                  )))
+                    },
+                  );
+                }),
+          ),
+        )),
+        floatingActionButton: SpeedDial(
+          animatedIcon: AnimatedIcons.menu_close,
+          backgroundColor: Colors.redAccent,
+          overlayColor: Colors.grey,
+          overlayOpacity: 0.5,
+          spacing: 15,
+          spaceBetweenChildren: 15,
+          closeManually: false,
+          visible: true,
+          children: [
+            SpeedDialChild(
+              child: Icon(Icons.add, color: Colors.white),
+              backgroundColor: Colors.green,
+              onTap: () => {
+                //navi.PopnavigateToAnotherPage(context),
+                navi.PushnavigateToAnotherPage(context, CreateView())
+              }, //print('Pressed Read Later'),
+              label: 'Add',
+              labelStyle:
+                  TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+              labelBackgroundColor: Colors.black,
+            )
+          ],
         ));
   }
 }

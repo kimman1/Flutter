@@ -64,12 +64,8 @@ class _AfterDeleteWidgetState extends State<AfterDeleteWidget> {
                     FlatButton(
                       child: Text('Return main Page'),
                       onPressed: () {
-                        // Navigator.pop(context);
-                        // Navigator.popUntil(
-                        //     context, ModalRoute.withName('/main'));
                         Navigator.of(context)
                             .popUntil((route) => route.isFirst);
-                        //navi.PushnavigateToAnotherPage(context, DataView());
                       },
                     ),
                     FlatButton(
@@ -134,7 +130,7 @@ class DetailViewState extends State<DetailView> {
   var globalKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    String Tilte = "Detail View for user  " + widget.idParameter;
+    String Tilte = "Detail View for user " + widget.idParameter;
     return (Scaffold(
       appBar: AppBar(title: Text(Tilte)),
       body: Column(
