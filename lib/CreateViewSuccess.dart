@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'DataView.dart';
-import 'InteractiveWithUser.dart';
+import 'InteractiveData/InteractiveWithUser.dart';
 import 'Navigate.dart';
 
 class CreateViewSuccess extends StatefulWidget {
@@ -32,13 +32,20 @@ class CreateViewSuccessState extends State<CreateViewSuccess> {
             NavigateToPage navi = new NavigateToPage();
             return (Container(
                 child: AlertDialog(
-                    title: Text(snapshot.data),
-                    content: Text('Add Success'),
+                    title: Text('notice'),
+                    content: Text(snapshot.data),
                     actions: <Widget>[
                   FlatButton(
                     child: Text('Return main Page'),
                     onPressed: () {
                       Navigator.of(context).popUntil((route) => route.isFirst);
+                    },
+                  ),
+                  FlatButton(
+                    child: Text('Return'),
+                    onPressed: () {
+                      navi.PopnavigateToAnotherPage(context);
+                      //Navigator.of(context).popUntil((route) => route.isFirst);
                     },
                   )
                 ])));

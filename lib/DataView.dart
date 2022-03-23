@@ -3,12 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:manage/CreateView.dart';
 import 'package:manage/DetailView.dart';
-import 'package:manage/FirstRoute.dart';
 import 'package:manage/Navigate.dart';
 import 'package:manage/user.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
-import 'package:manage/people.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class DataView extends StatefulWidget {
@@ -38,6 +35,7 @@ class DataViewState extends State<DataView> {
 
   Widget build(BuildContext context) {
     NavigateToPage navi = new NavigateToPage();
+    User userSendToAPI = new User();
     return Scaffold(
         appBar: AppBar(title: Text('Grid View')),
         body: Center(
@@ -81,11 +79,19 @@ class DataViewState extends State<DataView> {
                       ),
                     ),
                     onTap: () => {
+                      setState(() {
+                        userSendToAPI.id = listUser[index].id;
+                        userSendToAPI.email = listUser[index].email;
+                        userSendToAPI.gender = listUser[index].gender;
+                        userSendToAPI.name = listUser[index].name;
+                        userSendToAPI.status = listUser[index].status;
+                      }),
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => DetailView(
                                     idParameter: this.listUser[index].id,
+                                    user: userSendToAPI,
                                   )))
                     },
                   );

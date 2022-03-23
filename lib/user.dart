@@ -3,7 +3,7 @@ class User {
   String id, name, email, gender, status;
   User({this.id, this.name, this.email, this.gender, this.status});
 
-  User.fromJSON(Map json)
+  User.fromJSON(Map<String, dynamic> json)
       : id = json["id"].toString(),
         name = json["name"].toString(),
         email = json["email"].toString(),

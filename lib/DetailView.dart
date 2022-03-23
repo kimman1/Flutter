@@ -1,17 +1,12 @@
 //@dart=2.9
-import 'dart:convert';
-import 'dart:developer';
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manage/DataView.dart';
-import 'package:manage/FirstRoute.dart';
 import 'package:manage/Navigate.dart';
-import 'package:manage/user.dart';
 import 'package:http/http.dart' as http;
+import 'package:manage/Widget%20Success/EditViewSuccess.dart';
+import 'package:manage/user.dart';
 import 'Navigate.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class AfterDeleteWidget extends StatefulWidget {
   var id;
@@ -107,12 +102,18 @@ class _AfterDeleteWidgetState extends State<AfterDeleteWidget> {
 
 class DetailView extends StatefulWidget {
   var idParameter;
+  User user;
 
-  DetailView({Key key, @required this.idParameter}) : super(key: key);
+  DetailView({Key key, @required this.idParameter, @required this.user})
+      : super(key: key);
   DetailViewState createState() => DetailViewState();
 }
 
 class DetailViewState extends State<DetailView> {
+  TextEditingController NameController = new TextEditingController();
+  TextEditingController StatusController = new TextEditingController();
+  TextEditingController GenderController = new TextEditingController();
+  TextEditingController EmailController = new TextEditingController();
   SnackBar CustomSnackBar(message) => SnackBar(
         backgroundColor: Colors.amber,
         content: Text(
@@ -173,9 +174,20 @@ class DetailViewState extends State<DetailView> {
                 style: TextButton.styleFrom(primary: Colors.blue),
                 onPressed: () {
                   setState(() {
-                    showSnackBar(context, 'hello');
+                    print(widget.user.id + '\n');
+                    print(widget.user.name + '\n');
+                    User userSendAPI = new User();
+                    userSendAPI.email = EmailController.text;
+                    userSendAPI.gender = GenderController.text;
+                    userSendAPI.id = widget.user.id;
+                    userSendAPI.name = NameController.text;
+                    userSendAPI.status = StatusController.text;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                EditViewSuccess(user: userSendAPI)));
                   });
-
                   //AfterDelete(id: widget.idParameter);
                 },
               ),
@@ -235,27 +247,31 @@ class DetailViewState extends State<DetailView> {
             )
           ]),
           TextField(
+            controller: NameController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: "Enter Name",
+              hintText: widget.user.name,
             ),
           ),
           TextField(
+            controller: EmailController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: "Enter Email",
+              hintText: widget.user.email,
             ),
           ),
           TextField(
+            controller: GenderController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: "Enter Gender",
+              hintText: widget.user.gender,
             ),
           ),
           TextField(
+            controller: StatusController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: "Enter Status",
+              hintText: widget.user.status,
             ),
           )
         ],

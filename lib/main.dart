@@ -1,16 +1,13 @@
 //@dart=2.9
 // ignore_for_file: deprecated_member_use
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-// ignore: unnecessary_import
-import 'dart:ui';
+//import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:flutter/material.dart';
-import 'package:manage/CreateView.dart';
 import 'package:manage/DataView.dart';
 import 'FirstRoute.dart';
 import 'Navigate.dart';
 
 void main() {
-  setUrlStrategy(PathUrlStrategy());
+  //setUrlStrategy(PathUrlStrategy());
   runApp(MyApp());
 }
 
